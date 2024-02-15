@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import Base from "../components/Base";
 import UserCard from "../components/UserCard";
 import { getAllUsers, searchUser } from "../service/user-service";
-import { Container, Input } from "reactstrap";
+import { Button, Container, Input } from "reactstrap";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
@@ -24,7 +25,7 @@ const Home = () => {
   };
 
   const handleSearch = (e) => {
-    const text = e.target.value.trim(); 
+    const text = e.target.value.trim();
     setSearchText(text);
 
     if (text === "") {
@@ -37,8 +38,6 @@ const Home = () => {
         setUsers(data);
       })
       .catch((error) => {
-        // console.log("Error");
-        // console.log(error);
         toast.error("Something Wrong!!");
       });
   };
@@ -67,6 +66,14 @@ const Home = () => {
       ) : (
         <Container className="text-center display-5">
           No Users Available
+          <div className="divider  rounded" />
+          <Button
+            tag={Link}
+            to={"/create-user"}
+            className="btn bg-black my-3 "
+          >
+            Create User
+          </Button>
         </Container>
       )}
     </Base>
